@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TextRecoginition</string>
+    <string name="detail">Detail</string>
+    <string name="list">List</string>
+    <string name="scanner">Scanner</string>
+
+    <string name="list_text">List Text</string>
+    <string name="scan_text">Scan Text</string>
+    <string name="take_photo">Take Photo</string>
+
+    <string name="permission_not_granted">Permissions not granted by the user</string>
+    <string name="capture_image_status">Capturing the image</string>
+    <string name="analyze_text_status">Analyzing the text</string>
+    <string name="upload_to_server_status">Uploading to the server</string>
+</resources>
