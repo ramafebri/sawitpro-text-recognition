@@ -13,9 +13,8 @@ class TextRemoteDataSource @Inject constructor(private val firestore: FirebaseFi
     ITextRemoteDataSource {
     override fun postText(text: String): Flow<ApiResponse<String>> {
         return flow {
-            val task = firestore.collection(DATABASE).add(hashMapOf(FIELD to text))
             try {
-                val res = task.await()
+                val res = firestore.collection(DATABASE).add(hashMapOf(FIELD to text)).await()
                 getTextById(res.id).collect {
                     emit(it)
                 }
@@ -27,9 +26,8 @@ class TextRemoteDataSource @Inject constructor(private val firestore: FirebaseFi
 
     override fun getAllText(): Flow<ApiResponse<List<String>>> {
         return flow {
-            val task = firestore.collection(DATABASE).get()
             try {
-                val res = task.await()
+                val res = firestore.collection(DATABASE).get().await()
                 val textList = mutableListOf<String>()
                 for (item in res.documents) {
                     val value = item.get(FIELD)
@@ -44,9 +42,8 @@ class TextRemoteDataSource @Inject constructor(private val firestore: FirebaseFi
 
     override fun getTextById(id: String): Flow<ApiResponse<String>> {
         return flow {
-            val task = firestore.collection(DATABASE).document(id).get()
             try {
-                val res = task.await()
+                val res = firestore.collection(DATABASE).document(id).get().await()
                 val value = res.get(FIELD)
                 emit(ApiResponse.Success(value.toString()))
             } catch (e: Exception) {
